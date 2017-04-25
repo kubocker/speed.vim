@@ -2,8 +2,12 @@
 " Maintainer:  Takeshi Kubokawa <kubocker@gmail.com>
 " Version:  0.0.1
 "
+" ---- todo ---- "
 if !exists('g:speed_todo_path')
-    let g:speed_todo_path = $HOME . "/todo"
+    let g:speed_todo_path = ""
 endif
+" ---- memo ---- "
+
+" ---- diary ---- "
 
 command! -nargs=* Go : call Go(<f-args>)
