@@ -36,6 +36,11 @@ vim
 $ pip install TinyDB
 ```
 
+- path
+```vim
+let g:speed_todo_path = <your path>
+```
+
 ## commands
 
 #### todo
