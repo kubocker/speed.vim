@@ -9,6 +9,11 @@ let g:option_list = ["list", "add", "remove", "update", "all"]
 "let g:speed_todo_path  = 'Develop/kubocker/work/todo/'
 "let g:speed_memo_path  = 'Develop/kubocker/work/memo/'
 "let g:speed_diary_path = 'Develop/kubocker/work/diary/'
+"
+let g:speed_todo_path = expand(g:speed_todo_path, ':p')
+if !isdirectory(g:speed_todo_path)
+    call mkdir(g:speed_todo_path, 'p')
+endif
 
 
 " ========== Todo ========== "
