@@ -51,6 +51,12 @@ class Todo(Speed):
     def __init__(self, year, month, date=1):
         super(Todo, self).__init__(year, month, date)
         from tinydb import TinyDB, Query
+
+        # validate
+        if not os.path.exists(PATH):
+            print("you dont have directory....")
+            return None
+
         db = TinyDB(PATH + self.file_path)
         self.table = db.table("todos")
         self.query = Query()
@@ -84,15 +90,22 @@ class Todo(Speed):
         """ データの削除
         @param id
         """
-        pass
+        self.table.remmove(self.query.id == id)
 
-    def update(self, id):
+    def update(self, id, *args):
         """ データの更新
+        - todoのコンプリートの更新などを行いたい
+        - :Go todo delete id complete (True or False)
+        - :Go todo delete id title ""
         @param id
         """
-        pass
+        params = {"title": args[0], "complete": args[1]}
+        self.table.update(params, self.query.id == id)
 
     def list(self, date=""):
+        """ データのリスト表示
+        @param data
+        """
         todos = self.__get_todo(date)
         print(" -------------- ", "{0}年{1}月{2}日".format(self.year, self.month, todos[1]), " -------------- ")
         for it in todos[0]:
@@ -100,6 +113,7 @@ class Todo(Speed):
             print(check, it['title'])
 
     def all(self):
+        """ データの全て表示 """
         print(" ------------- ", "{0}年{1}月: Todo".format(self.year, self.month), " ------------- ")
         for it in self.table.all():
             day = '0' + it['date'] if len(it['date']) == 2 else it['date']

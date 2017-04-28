@@ -1,4 +1,20 @@
 
+if &cp || exists("g:autoloaded_speed")
+    finish
+endif
+let g:autoloaed_speed = '1'
+
+let s:cpo_save = &cpo
+set cpo&vim
+
+" ------ Utility functions ------ "
+function! s:error(str)
+    echohl ErrorMsg
+    echomsg a:str
+    echohl None
+    let v:errmsg = a:str
+endfunction
+
 
 py3file <sfile>:h:h/src/speed.py
 
@@ -13,6 +29,16 @@ let g:option_list = ["list", "add", "remove", "update", "all"]
 let g:speed_todo_path = expand(g:speed_todo_path, ':p')
 if !isdirectory(g:speed_todo_path)
     call mkdir(g:speed_todo_path, 'p')
+endif
+
+let g:speed_memo_path = expand(g:speed_memo_path, ':p')
+if !isdirectory(g:speed_memo_path)
+    call mkdir(g:speed_memo_path, 'p')
+endif
+
+let g:speed_diary_path = expand(g:speed_diary_path, ':p')
+if !isdirectory(g:speed_diary_path)
+    call mkdir(g:speed_diary_path, 'p')
 endif
 
 
@@ -116,3 +142,5 @@ python3 << endpython3
 
 endpython3
 endfunction
+
+let &cpo = s:cpo_save
