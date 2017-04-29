@@ -1,11 +1,15 @@
 
-if &cp || exists("g:autoloaded_speed")
-    finish
-endif
-let g:autoloaed_speed = '1'
+"if &cp || exists("g:autoloaded_speed")
+"    finish
+"endif
+"let g:autoloaed_speed = '1'
 
-let s:cpo_save = &cpo
+let s:save_cpo = &cpo
 set cpo&vim
+
+if !exists("g:loaded_speed")
+    runtime! plugin/speed.vim
+endif
 
 " ------ Utility functions ------ "
 function! s:error(str)
@@ -143,4 +147,5 @@ python3 << endpython3
 endpython3
 endfunction
 
-let &cpo = s:cpo_save
+let &cpo = s:save_cpo
+unlet s:save_cpo

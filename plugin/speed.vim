@@ -3,12 +3,16 @@
 " Version:  0.0.1
 "
 
-if (exists("g:loaded_todolist") && g:loaded_speed) || &cp
+"if (exists("g:loaded_todolist") && g:loaded_speed) || &cp
+"    finish
+"endif
+"let g:loaded_speed = 1
+
+if exists("g:loaded_speed")
     finish
 endif
-let g:loaded_speed = 1
 
-let s:cpo_save = &cpo
+let s:save_cpo = &cpo
 set cpo&vim
 
 " ---- todo ---- "
@@ -27,4 +31,7 @@ endif
 
 command! -nargs=* Go : call Go(<f-args>)
 
-let &cpo = s:cpo_save
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+let g:loaded_speed = 1
